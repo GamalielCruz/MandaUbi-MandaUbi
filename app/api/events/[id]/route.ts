@@ -89,13 +89,16 @@ export async function GET(
  * PATCH /api/events/[id]
  * 
  * Updates an existing event.
- * Only the event owner can update their events.
+ * Supports two authentication methods:
+ * 1. Clerk authentication (user must own the event)
+ * 2. Admin token authentication (for admin panel)
  * 
  * Path Parameters:
  * - id: string (required) - Sanity document ID
  * 
  * Request Body (all fields optional):
  * - title: string
+ * - slug: object - { current: string }
  * - eventType: string - 'wedding' | 'birthday' | 'quinceañera' | 'other'
  * - eventDate: string - ISO date string
  * - template: string - 'isla/0' | 'isla/1' | 'isla/2' | 'isla/4'
@@ -105,6 +108,7 @@ export async function GET(
  * - giftRegistry: object
  * - customImages: object
  * - contactInfo: object
+ * - adminToken: string (optional) - Admin authentication token
  * 
  * Returns:
  * - 200: Updated event object
@@ -119,20 +123,31 @@ export async function PATCH(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    // Authenticate user with Clerk
-    const { userId } = await auth()
-
-    if (!userId) {
-      return NextResponse.json(
-        { error: 'Unauthorized' },
-        { status: 401 }
-      )
-    }
-
     // Get event ID from params
     const { id } = await params
 
-    // Check if event exists and user is the owner
+    // Parse request body
+    const body = await req.json()
+    const { adminToken, ...updateFields } = body
+
+    // Check for admin token authentication
+    const isAdminAuth = adminToken === process.env.ADMIN_TOKEN
+
+    // If not admin, check Clerk authentication
+    let userId: string | null = null
+    if (!isAdminAuth) {
+      const authResult = await auth()
+      userId = authResult.userId
+
+      if (!userId) {
+        return NextResponse.json(
+          { error: 'Unauthorized' },
+          { status: 401 }
+        )
+      }
+    }
+
+    // Check if event exists
     const existingEvent = await sanityClient.fetch(
       `*[_type == "event" && _id == $id][0]`,
       { id }
@@ -145,33 +160,17 @@ export async function PATCH(
       )
     }
 
-    // Verify ownership
-    if (existingEvent.ownerClerkId !== userId) {
+    // Verify ownership (skip if admin)
+    if (!isAdminAuth && existingEvent.ownerClerkId !== userId) {
       return NextResponse.json(
         { error: 'Forbidden: You do not own this event' },
         { status: 403 }
       )
     }
-
-    // Parse request body
-    const body = await req.json()
-    const {
-      title,
-      eventType,
-      eventDate,
-      template,
-      location,
-      ceremonyLocation,
-      receptionLocation,
-      giftRegistry,
-      customImages,
-      contactInfo,
-    } = body
-
     // Validate eventType if provided
-    if (eventType) {
+    if (updateFields.eventType) {
       const validEventTypes = ['wedding', 'birthday', 'quinceañera', 'other']
-      if (!validEventTypes.includes(eventType)) {
+      if (!validEventTypes.includes(updateFields.eventType)) {
         return NextResponse.json(
           { error: `Invalid eventType. Must be one of: ${validEventTypes.join(', ')}` },
           { status: 400 }
@@ -180,9 +179,9 @@ export async function PATCH(
     }
 
     // Validate template if provided
-    if (template) {
+    if (updateFields.template) {
       const validTemplates = ['isla/0', 'isla/1', 'isla/2', 'isla/4']
-      if (!validTemplates.includes(template)) {
+      if (!validTemplates.includes(updateFields.template)) {
         return NextResponse.json(
           { error: `Invalid template. Must be one of: ${validTemplates.join(', ')}` },
           { status: 400 }
@@ -195,16 +194,12 @@ export async function PATCH(
       updatedAt: new Date().toISOString(),
     }
 
-    if (title !== undefined) updateData.title = title
-    if (eventType !== undefined) updateData.eventType = eventType
-    if (eventDate !== undefined) updateData.eventDate = eventDate
-    if (template !== undefined) updateData.template = template
-    if (location !== undefined) updateData.location = location
-    if (ceremonyLocation !== undefined) updateData.ceremonyLocation = ceremonyLocation
-    if (receptionLocation !== undefined) updateData.receptionLocation = receptionLocation
-    if (giftRegistry !== undefined) updateData.giftRegistry = giftRegistry
-    if (customImages !== undefined) updateData.customImages = customImages
-    if (contactInfo !== undefined) updateData.contactInfo = contactInfo
+    // Add all provided fields to update
+    Object.keys(updateFields).forEach(key => {
+      if (updateFields[key] !== undefined) {
+        updateData[key] = updateFields[key]
+      }
+    })
 
     // Update event in Sanity
     const updatedEvent = await sanityClient
