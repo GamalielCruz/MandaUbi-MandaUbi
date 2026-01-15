@@ -7,9 +7,14 @@ const isPublicRoute = createRouteMatcher([
   '/signup(.*)',
   '/api/webhooks/clerk',
   '/api/guest/(.*)',
-  '/isla/(.*)',
+  '/api/events/(.*)',        // APIs de eventos públicos
+  '/api/invitations/(.*)',   // APIs de invitaciones públicos
+  '/api/rsvp',              // API de RSVP público
+  '/invitation/(.*)',       // Páginas de invitaciones
+  '/isla/(.*)',            // Plantillas de invitaciones
   '/aviso/(.*)',
   '/examples/(.*)',
+  '/[^/]+',                // URLs cortas (cualquier slug de un nivel)
 ])
 
 export default clerkMiddleware(async (auth, request) => {
