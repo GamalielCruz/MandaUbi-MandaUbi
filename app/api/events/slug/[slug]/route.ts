@@ -24,7 +24,7 @@ export async function GET(
     // Get slug from params
     const { slug } = await params
 
-    // Query event by slug
+    // Query event by slug with invitations
     const query = `
       *[_type == "event" && slug.current == $slug && !isArchived][0] {
         _id,
@@ -41,7 +41,12 @@ export async function GET(
         customImages,
         contactInfo,
         createdAt,
-        updatedAt
+        updatedAt,
+        "invitations": *[_type == "invitation" && references(^._id)] {
+          _id,
+          token,
+          guestName
+        }
       }
     `
 
