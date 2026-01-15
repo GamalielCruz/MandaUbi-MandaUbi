@@ -23,7 +23,7 @@
     "@portabletext/plugin-markdown-shortcuts": "^5.0.14",
     "@sanity/client": "^7.14.0",
     "@sanity/image-url": "^2.0.2",
-    "@sanity/vision": "^5.3.1",
+    "@sanity/vision": "^3.58.0",
     "@vercel/speed-insights": "^1.2.0",
     "add-to-calendar-button": "^2.7.3",
     "aos": "^3.0.0-beta.6",
@@ -33,7 +33,8 @@
     "lucide-react": "^0.469.0",
     "next": "14.2.25",
     "next-sanity": "^12.0.12",
-    "sanity": "^5.3.1",
+    "sanity": "^3.58.0",
+    "styled-components": "^6.3.6",
     "svix": "^1.84.1",
     "swiper": "^11.1.15"
   },
