@@ -11,7 +11,8 @@
     "start": "next start",
     "lint": "next lint",
     "sanity": "sanity dev",
-    "sanity:deploy": "sanity deploy"
+    "sanity:deploy": "sanity deploy",
+    "studio:deploy": "powershell -ExecutionPolicy Bypass -File ./deploy-studio.ps1"
   },
   "dependencies": {
     "@clerk/nextjs": "^6.36.7",
