@@ -6,8 +6,14 @@ const nextConfig = {
           protocol: 'https',
           hostname: 'blogger.googleusercontent.com',
         },
+        {
+          protocol: 'https',
+          hostname: 'cdn.sanity.io',
+        },
       ],
     },
+    // Use standalone output for deployment
+    output: 'standalone',
   };
   
   module.exports = nextConfig;

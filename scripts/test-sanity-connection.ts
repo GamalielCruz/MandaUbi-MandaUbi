@@ -41,7 +41,7 @@ async function testConnection() {
       }
     }`
     
-    const result = await client.fetch(query, { token })
+    const result = await client.fetch(query, { token } as Record<string, any>)
     
     if (result) {
       console.log('✅ SUCCESS! Invitation found:')

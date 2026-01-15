@@ -1,5 +1,8 @@
 'use client'
 
+// Force dynamic rendering since we use searchParams
+export const dynamic = 'force-dynamic'
+
 import { useEffect, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { urlFor } from '@/lib/sanity'

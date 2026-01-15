@@ -22,7 +22,7 @@ const images: ImageData[] = [
   },
 ];
 
-export default function ImageSlider(): JSX.Element {
+export default function ImageSlider() {
   // State to keep track of the current image index
   const [currentIndex, setCurrentIndex] = useState<number>(0);
 

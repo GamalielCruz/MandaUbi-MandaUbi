@@ -48,7 +48,8 @@ export async function GET(
       }
     }`
 
-    const invitation = await sanityClient.fetch(query, { token })
+    const params = { token } as Record<string, any>
+    const invitation = await sanityClient.fetch<any>(query, params)
 
     if (!invitation) {
       return NextResponse.json(
