@@ -7,19 +7,28 @@ const isPublicRoute = createRouteMatcher([
   '/signup(.*)',
   '/api/webhooks/clerk',
   '/api/guest/(.*)',
-  '/api/events/(.*)',        // APIs de eventos públicos
-  '/api/invitations/(.*)',   // APIs de invitaciones públicos
-  '/api/rsvp',              // API de RSVP público
-  '/invitation/(.*)',       // Páginas de invitaciones
-  '/isla/(.*)',            // Plantillas de invitaciones
+  '/api/events/(.*)',
+  '/api/invitations/(.*)',
+  '/api/rsvp',
+  '/invitation/(.*)',
+  '/isla/(.*)',
   '/aviso/(.*)',
   '/examples/(.*)',
-  '/[^/]+',                // URLs cortas (cualquier slug de un nivel)
 ])
 
 export default clerkMiddleware(async (auth, request) => {
-  // Protect all routes except public ones
-  if (!isPublicRoute(request)) {
+  const { pathname } = request.nextUrl
+  
+  // Check if it's a short URL (single segment, not starting with known paths)
+  const isShortUrl = /^\/[a-zA-Z0-9-_]+$/.test(pathname) && 
+    !pathname.startsWith('/api') && 
+    !pathname.startsWith('/signin') && 
+    !pathname.startsWith('/signup') && 
+    !pathname.startsWith('/admin') &&
+    !pathname.startsWith('/studio')
+  
+  // Protect all routes except public ones and short URLs
+  if (!isPublicRoute(request) && !isShortUrl) {
     await auth.protect()
   }
 })
