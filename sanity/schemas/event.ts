@@ -138,6 +138,22 @@ export default defineType({
     
     // NUEVA SECCIÓN: Imágenes y Multimedia
     defineField({
+      name: 'customIcon',
+      title: 'Icono/Logo Personalizado',
+      type: 'image',
+      options: {
+        hotspot: true,
+      },
+      fields: [
+        {
+          name: 'alt',
+          type: 'string',
+          title: 'Texto Alternativo',
+        }
+      ],
+      description: '🎨 Sube tu propio PNG/logo para reemplazar el emoji de fiesta (recomendado: 200x200px, fondo transparente)',
+    }),
+    defineField({
       name: 'heroImage',
       title: 'Imagen Principal',
       type: 'image',

@@ -14,6 +14,7 @@ interface EventData {
   description: string
   eventDate: string
   eventType?: string
+  customIcon?: any
   heroImage?: any
   gallery?: Array<{ asset: any; caption?: string }>
   backgroundMusic?: { asset: { url: string } }
@@ -382,9 +383,17 @@ export default function Isla5() {
         {/* Título principal con animación */}
         <div className="text-center text-white mb-12 scroll-reveal">
           <div className="inline-block animate-bounce-slow">
-            <h1 className="text-5xl sm:text-7xl md:text-9xl font-bold mb-4 sm:mb-6 drop-shadow-2xl">
-              🎉
-            </h1>
+            {eventData?.customIcon ? (
+              <img 
+                src={urlFor(eventData.customIcon).width(300).height(300).url()} 
+                alt="Icono del evento"
+                className="w-24 h-24 sm:w-32 sm:h-32 md:w-48 md:h-48 mx-auto mb-4 sm:mb-6 drop-shadow-2xl object-contain"
+              />
+            ) : (
+              <h1 className="text-5xl sm:text-7xl md:text-9xl font-bold mb-4 sm:mb-6 drop-shadow-2xl">
+                🎉
+              </h1>
+            )}
           </div>
           <h2 className="text-3xl sm:text-5xl md:text-7xl font-extrabold mb-3 sm:mb-4 drop-shadow-lg animate-slide-in-left px-4">
             ¡Estás Invitado!

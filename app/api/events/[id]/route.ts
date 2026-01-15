@@ -32,6 +32,13 @@ export async function GET(
       eventDate,
       template,
       theme,
+      customIcon{
+        asset->{
+          _id,
+          url
+        },
+        alt
+      },
       heroImage{
         asset->{
           _id,
