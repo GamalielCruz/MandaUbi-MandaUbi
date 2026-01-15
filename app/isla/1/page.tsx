@@ -1,8 +1,7 @@
 
 "use client";
 import 'add-to-calendar-button';
-import { Monsieur_La_Doulaise } from '@next/font/google';
-import { Fraunces } from '@next/font/google';
+import { Monsieur_La_Doulaise, Fraunces } from 'next/font/google';
 import ImageSlider from '@/components/slider';
 import { motion } from "framer-motion";
 import { useState, useEffect, useRef  } from 'react';

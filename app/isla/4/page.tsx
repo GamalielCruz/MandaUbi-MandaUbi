@@ -1,6 +1,6 @@
 "use client"; 
 import { useState, useRef } from 'react';
-import { Bodoni_Moda } from '@next/font/google';
+import { Bodoni_Moda } from 'next/font/google';
 
 const bodoni = Bodoni_Moda ({
     subsets: ['latin'],

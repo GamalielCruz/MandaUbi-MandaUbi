@@ -1,10 +1,9 @@
 {
-  "name": "simple-next",
+  "name": "mandaubi",
   "version": "0.1.0",
   "private": true,
-  "overrides": {
-    "react": "^19.2.3",
-    "react-dom": "^19.2.3"
+  "engines": {
+    "node": ">=18.0.0"
   },
   "scripts": {
     "dev": "next dev",
@@ -17,13 +16,9 @@
   "dependencies": {
     "@clerk/nextjs": "^6.36.7",
     "@headlessui/react": "^2.0.4",
-    "@next/font": "^14.2.15",
     "@sanity/client": "^7.14.0",
     "@sanity/image-url": "^2.0.2",
     "@sanity/vision": "^5.3.0",
-    "@types/node": "^20.10.4",
-    "@types/react": "^19.2.8",
-    "@types/react-dom": "^19.2.3",
     "@vercel/speed-insights": "^1.2.0",
     "add-to-calendar-button": "^2.7.3",
     "aos": "^3.0.0-beta.6",
@@ -31,24 +26,24 @@
     "dotenv": "^17.2.3",
     "framer-motion": "^11.15.0",
     "lucide-react": "^0.469.0",
-    "next": "^14.2.24",
+    "next": "14.2.24",
     "next-sanity": "^12.0.12",
-    "prettier-plugin-tailwindcss": "^0.6.5",
-    "react": "^19.2.3",
-    "react-dom": "^19.2.3",
-    "react-router-dom": "^6.26.2",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "sanity": "^5.3.0",
-    "styled-components": "^6.3.6",
     "svix": "^1.84.1",
-    "swiper": "^11.1.15",
-    "typescript": "^5.3.3"
+    "swiper": "^11.1.15"
   },
   "devDependencies": {
     "@tailwindcss/forms": "^0.5.7",
     "@types/aos": "^3.0.7",
     "@types/canvas-confetti": "^1.9.0",
+    "@types/node": "^20.10.4",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
     "autoprefixer": "^10.4.16",
     "postcss": "^8.4.32",
-    "tailwindcss": "^3.3.6"
+    "tailwindcss": "^3.3.6",
+    "typescript": "^5.3.3"
   }
 }
