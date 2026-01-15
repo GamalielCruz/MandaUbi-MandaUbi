@@ -14,6 +14,7 @@ const isPublicRoute = createRouteMatcher([
   '/isla/(.*)',
   '/aviso/(.*)',
   '/examples/(.*)',
+  '/studio(.*)',  // Sanity Studio
 ])
 
 export default clerkMiddleware(async (auth, request) => {

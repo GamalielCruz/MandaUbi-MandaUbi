@@ -20,7 +20,7 @@ export const publicSanityClient = createClient({
   dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || 'production',
   apiVersion: '2024-01-01',
   useCdn: true, // Always use CDN for public reads
-  perspective: 'published' as const, // Only fetch published documents
+  perspective: 'published' as const, // Only fetch pubcuments
 })
 
 // Helper function to generate image URLs
