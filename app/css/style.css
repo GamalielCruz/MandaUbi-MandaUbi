@@ -1,0 +1,28 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+
+/* Additional styles */
+/* Additional styles */
+@import "additional-styles/utility-patterns.css";
+@import "additional-styles/theme.css";
+
+@import "tailwindcss/utilities";
+
+@layer utilities {
+  /* Chrome, Safari and Opera */
+  .scrollbar-hidden::-webkit-scrollbar {
+    display: none;
+  }
+
+  .scrollbar-hidden {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+  }
+}
+
+#scrollDiv {
+    background-color: #ffffff; /* Blanco inicial */
+    color: #000000; /* Texto negro */
+    transition: background-color 0.5s ease, color 0.5s ease; /* Suaviza cambios */
+  }
+

@@ -1,0 +1,35 @@
+.monsieur-la-doulaise-regular {
+    font-family: "Monsieur La Doulaise", serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+
+.fraunces-regular {
+  font-family: "Fraunces", serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-variation-settings:
+    "SOFT" 0,
+    "WONK" 0;
+}
+
+.barriecito-regular {
+  font-family: "Barriecito", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.klee-one-regular {
+  font-family: "Klee One", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.bodoni-moda-regular {
+  font-family: "Bodoni Moda", serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
